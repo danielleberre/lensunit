@@ -17,10 +17,13 @@ public class TestSuite implements Test {
 	}
 
 	public void add(Class<? extends TestCase> testcases) {
+		TestCase testCase;
 		for (Method m : testcases.getMethods()) {
 			if (m.getName().startsWith("test")) {
 				try {
-					add(testcases.getConstructor(String.class).newInstance(m.getName()));
+					testCase = testcases.getConstructor().newInstance();
+					testCase.setMethodName(m.getName());
+					add(testCase);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 					e.printStackTrace();

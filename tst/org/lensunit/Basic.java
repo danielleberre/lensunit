@@ -2,10 +2,6 @@ package org.lensunit;
 
 public class Basic extends TestCase {
 
-	public Basic(String methodName) {
-		super(methodName);
-	}
-
 	public void testTrivialOk() {
 		
 	}

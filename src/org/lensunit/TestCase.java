@@ -6,13 +6,21 @@ import fr.univartois.migl.utils.DesignPattern;
 
 public abstract class TestCase implements Test {
 
-	private final String methodName;
+	private String methodName;
 
 	protected TestCase(String methodName) {
 		this.methodName = methodName;
 	}
 
-	@Override
+	protected TestCase() {
+		
+	}
+	
+	void setMethodName(String methodName) {
+		this.methodName = methodName;
+	}
+	
+ 	@Override
 	@DesignPattern(name = "template", url = "https://en.wikipedia.org/wiki/Template_method_pattern")
 	public void run(ReportingStrategy reporting) {
 		beforeEach();
