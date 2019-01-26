@@ -22,7 +22,6 @@ public abstract class TestCase implements Test {
 		} catch (AssertionError assertion) {
 			reporting.report(methodName, Outcome.FAILURE, assertion);
 		} catch (Throwable t) {
-			t.printStackTrace();
 			reporting.report(methodName, Outcome.ERROR, t);
 		} finally {
 			afterEach();
