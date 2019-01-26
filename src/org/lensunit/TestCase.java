@@ -4,18 +4,37 @@ import java.lang.reflect.InvocationTargetException;
 
 import fr.univartois.migl.utils.DesignPattern;
 
+/**
+ * JUnit 3 like test cases.
+ * 
+ * @author leberre
+ *
+ */
 public abstract class TestCase implements Test {
 
 	private String methodName;
 
+	/**
+	 * Constructor used to limit the execution of a single test.
+	 * 
+	 * @param methodName
+	 */
 	protected TestCase(String methodName) {
 		this.methodName = methodName;
 	}
 
+	/**
+	 * Default constructor used to avoid having to declare a constructor in the test cases.
+	 */
 	protected TestCase() {
 		
 	}
 	
+	/**
+	 * Used in the {@link TestSuite} class to set the test to execute.
+	 * 
+	 * @param methodName
+	 */
 	void setMethodName(String methodName) {
 		this.methodName = methodName;
 	}
@@ -23,6 +42,10 @@ public abstract class TestCase implements Test {
  	@Override
 	@DesignPattern(name = "template", url = "https://en.wikipedia.org/wiki/Template_method_pattern")
 	public void run(ReportingStrategy reporting) {
+ 		// Each test follows the same template
+ 		// 1. Call the beforeEach() method
+ 		// 2. Run the test
+ 		// 3. Call the afterEach() method
 		beforeEach();
 		try {
 			runCurrent();
@@ -36,18 +59,28 @@ public abstract class TestCase implements Test {
 		}
 	}
 
+ 	
 	@DesignPattern(name="pluggable selector",url="http://junit.sourceforge.net/doc/cookstour/cookstour.htm")
 	protected void runCurrent() throws Throwable {
 		try {
 			this.getClass().getMethod(methodName).invoke(this);
 		} catch (InvocationTargetException e) {
+			// the tricky part here is that each exception launched in the invoked method
+			// is embedded in an InvocationTargetException. We need to recover the original
+			// issue here.
 			throw e.getCause();
 		}
 	}
 
+	/**
+	 * Hook method to be called before each test.
+	 */
 	public void beforeEach() {
 	}
 
+	/**
+	 * Hook method to be called after each test.
+	 */
 	public void afterEach() {
 	}
 

@@ -1,5 +1,11 @@
 package org.lensunit;
 
+/**
+ * A more verbose reporting strategy: each test name appears in the report, with the outcome of that test.
+ * 
+ * @author leberre
+ *
+ */
 public class VerboseReportingStrategy implements ReportingStrategy {
 
 	private int nbtests = 0;

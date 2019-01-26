@@ -3,6 +3,12 @@ package org.lensunit;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Only displays a summary of the tests results.
+ * 
+ * @author leberre
+ *
+ */
 public class SummaryReportingStrategy implements ReportingStrategy {
 
 	private Map<Outcome,Counter> stats = new HashMap<>();

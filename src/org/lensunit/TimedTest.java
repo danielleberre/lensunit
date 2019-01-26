@@ -2,6 +2,14 @@ package org.lensunit;
 
 import fr.univartois.migl.utils.DesignPattern;
 
+/**
+ * Decorator to compute the time needed to run a particular test.
+ * 
+ * Mainly here to demo the Decorator Design Pattern. There may be better way to achieve this.
+ * 
+ * @author leberre
+ *
+ */
 @DesignPattern(name="decorator",url="https://en.wikipedia.org/wiki/Decorator_pattern")
 public class TimedTest implements Test {
 	

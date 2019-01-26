@@ -1,5 +1,11 @@
 package org.lensunit;
 
+/**
+ * Simple counter.
+ * 
+ * @author leberre
+ *
+ */
 public class Counter {
 	private int value = 0;
 	
