@@ -84,43 +84,43 @@ public abstract class TestCase implements Test {
 	public void afterEach() {
 	}
 
-	public void assertTrue(boolean condition) {
+	public static final void assertTrue(boolean condition) {
 		if (!condition) {
 			throw new AssertionError();
 		}
 	}
 
-	public void assertFalse(boolean condition) {
+	public static final void assertFalse(boolean condition) {
 		if (condition) {
 			throw new AssertionError();
 		}
 	}
 
-	public void assertTrue(boolean condition, String message) {
+	public static final void assertTrue(boolean condition, String message) {
 		if (!condition) {
 			throw new AssertionError(message);
 		}
 	}
 
-	public void assertFalse(boolean condition, String message) {
+	public static final void assertFalse(boolean condition, String message) {
 		if (condition) {
 			throw new AssertionError(message);
 		}
 	}
 
-	public void assertNull(Object o) {
+	public static final void assertNull(Object o) {
 		if (o != null) {
 			throw new AssertionError("This object should be null!");
 		}
 	}
 
-	public void assertNotNull(Object o) {
+	public static final void assertNotNull(Object o) {
 		if (o == null) {
 			throw new AssertionError("This object should NOT be null!");
 		}
 	}
 
-	public void assertEquals(Object expected, Object o) {
+	public static final void assertEquals(Object expected, Object o) {
 		if (!expected.equals(o)) {
 			throw new AssertionError(String.format("Expected %s but got %s", expected, o));
 		}
