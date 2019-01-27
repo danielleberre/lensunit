@@ -7,7 +7,7 @@ design patterns.
 
 The design of the testing framework is inspired by the [original JUnit 3 design](http://junit.sourceforge.net/doc/cookstour/cookstour.htm).
 
-That framework is not meant to be used in production. It is just an educational exercice.
+That framework is not meant to be used in production. It is just an educational exercise.
 
 The framework does not use any difficult Java constructs since it is aimed at
 entry level Java programmers and OO designers.
