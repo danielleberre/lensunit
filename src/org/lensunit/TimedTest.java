@@ -5,8 +5,8 @@ import fr.univartois.migl.utils.DesignPattern;
 /**
  * Decorator to compute the time needed to run a particular test.
  * 
- * Mainly here to demo the Decorator Design Pattern. There may be better way to achieve this.
- * 
+ * Mainly here to demo the decorator design pattern. There may be better way to achieve this.
+ *
  * @author leberre
  *
  */

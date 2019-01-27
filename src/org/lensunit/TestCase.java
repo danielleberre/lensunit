@@ -65,7 +65,7 @@ public abstract class TestCase implements Test {
 		try {
 			this.getClass().getMethod(methodName).invoke(this);
 		} catch (InvocationTargetException e) {
-			// the tricky part here is that each exception launched in the invoked method
+			// the tricky part here is that each exception thrown in the invoked method
 			// is embedded in an InvocationTargetException. We need to recover the original
 			// issue here.
 			throw e.getCause();
