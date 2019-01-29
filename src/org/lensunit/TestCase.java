@@ -84,57 +84,77 @@ public abstract class TestCase implements Test {
 	public void afterEach() {
 	}
 
+	public static final void fail() {
+		throw new AssertionError();
+	}
+	
+	public static final void fail(String message) {
+		throw new AssertionError(message);
+	}
+	
 	public static final void assertTrue(boolean condition) {
 		if (!condition) {
-			throw new AssertionError();
+			fail();
 		}
 	}
 
 	public static final void assertFalse(boolean condition) {
 		if (condition) {
-			throw new AssertionError();
+			fail();
 		}
 	}
 
 	public static final void assertTrue(boolean condition, String message) {
 		if (!condition) {
-			throw new AssertionError(message);
+			fail(message);
 		}
 	}
 
 	public static final void assertFalse(boolean condition, String message) {
 		if (condition) {
-			throw new AssertionError(message);
+			fail(message);
 		}
 	}
 
 	public static final void assertNull(Object o) {
 		if (o != null) {
-			throw new AssertionError("This object should be null!");
+			fail("This object should be null!");
 		}
 	}
 
 	public static final void assertNotNull(Object o) {
 		if (o == null) {
-			throw new AssertionError("This object should NOT be null!");
+			fail("This object should NOT be null!");
 		}
 	}
 
 	public static final void assertEquals(Object expected, Object o) {
 		if (!expected.equals(o)) {
-			throw new AssertionError(String.format("Expected %s but got %s", expected, o));
+			fail(String.format("Expected %s but got %s", expected, o));
 		}
 	}
 	
 	public static final void assertSame(Object expected, Object o) {
 		if (expected != o) {
-			throw new AssertionError(String.format("%s and %s are not identical", expected, o));
+			fail(String.format("%s and %s are not identical", expected, o));
 		}
 	}
 	
 	public static final void assertNotSame(Object expected, Object o) {
 		if (expected == o) {
-			throw new AssertionError(String.format("The two objects are identical to %s ", expected));
+			fail(String.format("The two objects are identical to %s ", expected));
+		}
+	}
+	
+	public static final <T extends Throwable> T assertThrows(Class<T> clazz, MethodHandle handle) {
+		try {
+			handle.doSomething();
+			throw new AssertionError("No exception thrown");
+		} catch (Throwable t) {
+			if (clazz.isAssignableFrom(t.getClass())) {
+				return (T)t;
+			}
+			throw new AssertionError(String.format("Expected exception %s but got exception %s", clazz.getName(),t.getClass().getName()));
 		}
 	}
 }
