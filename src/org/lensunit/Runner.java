@@ -1,5 +1,8 @@
 package org.lensunit;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Very simple test runner.
  * 
@@ -11,19 +14,35 @@ public class Runner {
 	/**
 	 * Runs all the tests found in the classes given on the command line.
 	 * 
-	 * @param args fully qualified name of the 
+	 * @param args fully qualified name of the
 	 * @throws ClassNotFoundException
 	 */
 	public static void main(String[] args) throws ClassNotFoundException {
 		TestSuite allTests = new TestSuite();
-		for (String testclass :args) {
-			allTests.add((Class<? extends TestCase>)Class.forName(testclass));
+		Class<?> clazz;
+		for (String testclass : args) {
+			clazz = Class.forName(testclass);
+			if (TestCase.class.isAssignableFrom(clazz)) {
+				allTests.add((Class<? extends TestCase>) clazz);
+			} else {
+				// looking for a class with a suite() method
+				try {
+					Method m = clazz.getMethod("suite");
+					Object o = m.invoke(null);
+					if (o instanceof TestSuite) {
+						allTests.add((TestSuite)o);
+					}
+				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		TimedTest timedTests = new TimedTest(allTests);
 		ReportingStrategy reporting = new VerboseReportingStrategy();
 		timedTests.run(reporting);
 		System.out.println(reporting);
-		System.out.printf("Duration: %dms",timedTests.getDuration());
+		System.out.printf("Duration: %dms", timedTests.getDuration());
 	}
 
 }
