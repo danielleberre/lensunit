@@ -19,4 +19,20 @@ public class Basic extends TestCase {
 	public void testFailingEquals() {
 		assertEquals(2,4);
 	}
+	
+	public void testIntegerValueOf() {
+		Integer a = Integer.valueOf(10);
+		Integer b = Integer.valueOf(10);
+		Integer c = new Integer(10);
+		Integer d = new Integer(10);
+		assertEquals(a,b);
+		assertEquals(a,c);
+		assertEquals(a,d);
+		assertSame(a,b);
+		assertNotSame(a,c);
+		assertNotSame(a,d);
+		assertNotSame(b,c);
+		assertNotSame(b,d);
+		assertNotSame(c,d);
+	}
 }

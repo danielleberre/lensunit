@@ -125,4 +125,16 @@ public abstract class TestCase implements Test {
 			throw new AssertionError(String.format("Expected %s but got %s", expected, o));
 		}
 	}
+	
+	public static final void assertSame(Object expected, Object o) {
+		if (expected != o) {
+			throw new AssertionError(String.format("%s and %s are not identical", expected, o));
+		}
+	}
+	
+	public static final void assertNotSame(Object expected, Object o) {
+		if (expected == o) {
+			throw new AssertionError(String.format("The two objects are identical to %s ", expected));
+		}
+	}
 }
