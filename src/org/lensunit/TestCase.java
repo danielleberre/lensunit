@@ -1,6 +1,7 @@
 package org.lensunit;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import fr.univartois.migl.utils.DesignPattern;
 
@@ -82,6 +83,30 @@ public abstract class TestCase implements Test {
 	 * Hook method to be called after each test.
 	 */
 	public void afterEach() {
+	}
+	
+	/**
+	 * Return all the tests available in that class.
+	 * 
+	 * @return a suite of tests containing all the tests found in that class.
+	 */
+	public TestSuite suite() {
+		TestSuite suite = new TestSuite();
+		TestCase testCase;
+		Class<? extends TestCase> testcases = this.getClass();
+		for (Method m : testcases.getMethods()) {
+			if (m.getName().startsWith("test")) {
+				try {
+					testCase = testcases.getConstructor().newInstance();
+					testCase.setMethodName(m.getName());
+					suite.add(testCase);
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return suite;
 	}
 
 	public static final void fail() {

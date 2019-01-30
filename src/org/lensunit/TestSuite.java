@@ -33,18 +33,10 @@ public class TestSuite implements Test {
 	 * @param testcases a subclass of TestCase containing tests
 	 */
 	public void add(Class<? extends TestCase> testcases) {
-		TestCase testCase;
-		for (Method m : testcases.getMethods()) {
-			if (m.getName().startsWith("test")) {
-				try {
-					testCase = testcases.getConstructor().newInstance();
-					testCase.setMethodName(m.getName());
-					add(testCase);
-				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-					e.printStackTrace();
-				}
-			}
+		try {
+			add(testcases.newInstance().suite());
+		} catch (InstantiationException | IllegalAccessException e) {
+			// do nothing
 		}
 	}
 

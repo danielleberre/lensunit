@@ -22,22 +22,21 @@ public class Runner {
 		Class<?> clazz;
 		for (String testclass : args) {
 			clazz = Class.forName(testclass);
-			if (TestCase.class.isAssignableFrom(clazz)) {
-				allTests.add((Class<? extends TestCase>) clazz);
-			} else {
+			
 				// looking for a class with a suite() method
 				try {
 					Method m = clazz.getMethod("suite");
-					Object o = m.invoke(null);
+					Object caller = clazz.newInstance();
+					Object o = m.invoke(caller);
 					if (o instanceof TestSuite) {
 						allTests.add((TestSuite)o);
 					}
-				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}
+		
 		TimedTest timedTests = new TimedTest(allTests);
 		ReportingStrategy reporting = new VerboseReportingStrategy();
 		timedTests.run(reporting);
