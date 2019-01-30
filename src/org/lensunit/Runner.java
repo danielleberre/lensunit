@@ -2,6 +2,7 @@ package org.lensunit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * Very simple test runner.
@@ -26,8 +27,13 @@ public class Runner {
             // looking for a class with a suite() method
             try {
                 Method m = clazz.getMethod("suite");
-                Object caller = clazz.newInstance();
-                Object o = m.invoke(caller);
+                Object o;
+                if (Modifier.isStatic(m.getModifiers())) {
+                    o = m.invoke(null);
+                } else {
+                    Object caller = clazz.newInstance();
+                    o = m.invoke(caller);
+                }
                 if (o instanceof TestSuite) {
                     allTests.add((TestSuite) o);
                 }
