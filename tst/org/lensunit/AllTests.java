@@ -10,8 +10,7 @@ package org.lensunit;
 public class AllTests {
     public static TestSuite suite() {
         TestSuite suite = new TestSuite();
-        suite.add(Basic.class);
-        suite.add(Exceptions.class);
+        suite.add(SelfTests.class);
         return suite;
     }
 }
