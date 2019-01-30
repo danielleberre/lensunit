@@ -1,7 +1,7 @@
 package org.lensunit;
 
 /**
- * Any non-TestCase class with a suite() method
+ * Any non-TestCase class with a static suite() method
  * can be used to build a TestSuite.
  * 
  * @author leberre
