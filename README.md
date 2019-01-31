@@ -1,5 +1,7 @@
 # Simple unit testing framework for education purpose
 
+[![Build Status](https://travis-ci.org/danielleberre/lensunit.svg?branch=master)](https://travis-ci.org/danielleberre/lensunit)
+
 ## Goal
 
 The aim of this simple unit testing framework in Java is to illustrate the use of various
