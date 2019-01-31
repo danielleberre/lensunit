@@ -31,4 +31,9 @@ public class VerboseReportingStrategy implements ReportingStrategy {
         return String.format("Total %d test(s) run, status is %s", nbtests, overall);
     }
 
+    @Override
+    public Outcome globalOutcome() {
+        return overall;
+    }
+
 }

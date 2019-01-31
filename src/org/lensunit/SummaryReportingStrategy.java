@@ -32,4 +32,15 @@ public class SummaryReportingStrategy implements ReportingStrategy {
     public String toString() {
         return stats.toString();
     }
+
+    @Override
+    public Outcome globalOutcome() {
+        if (stats.get(Outcome.ERROR).getValue() > 0) {
+            return Outcome.ERROR;
+        }
+        if (stats.get(Outcome.FAILURE).getValue() > 0) {
+            return Outcome.FAILURE;
+        }
+        return Outcome.OK;
+    }
 }

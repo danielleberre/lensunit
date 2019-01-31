@@ -16,4 +16,8 @@ import fr.univartois.migl.utils.DesignPattern;
 public interface ReportingStrategy {
 
     void report(String testname, Outcome outcome, Throwable reason);
+
+    default Outcome globalOutcome() {
+        return Outcome.OK;
+    }
 }
