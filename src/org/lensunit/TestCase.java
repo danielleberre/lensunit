@@ -2,6 +2,8 @@ package org.lensunit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import fr.univartois.migl.utils.DesignPattern;
 
@@ -12,6 +14,7 @@ import fr.univartois.migl.utils.DesignPattern;
  *
  */
 public abstract class TestCase implements Test {
+    private static final Logger LOGGER = Logger.getLogger("org.lensunit");
 
     private String methodName;
 
@@ -102,7 +105,7 @@ public abstract class TestCase implements Test {
                     suite.add(testCase);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                         | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.INFO, "cannot create test " + m.getName(), e);
                 }
             }
         }
