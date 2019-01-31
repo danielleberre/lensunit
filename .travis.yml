@@ -1,4 +1,4 @@
 language: java
 script:
 - ./build.sh
-- ./runtests.sh
+- ./runtests.sh org.lensunit.AllTests
