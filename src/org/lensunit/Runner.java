@@ -3,6 +3,8 @@ package org.lensunit;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Very simple test runner.
@@ -19,6 +21,7 @@ public class Runner {
      * @throws ClassNotFoundException
      */
     public static void main(String[] args) throws ClassNotFoundException {
+        Logger logger = Logger.getLogger("org.lensunit");
         TestSuite allTests = new TestSuite();
         Class<?> clazz;
         for (String testclass : args) {
@@ -39,8 +42,7 @@ public class Runner {
                 }
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | InstantiationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.log(Level.INFO, "cannot run tests " + testclass, e);
             }
         }
 

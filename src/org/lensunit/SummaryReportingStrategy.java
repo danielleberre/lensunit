@@ -1,6 +1,6 @@
 package org.lensunit;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class SummaryReportingStrategy implements ReportingStrategy {
 
-    private Map<Outcome, Counter> stats = new HashMap<>();
+    private Map<Outcome, Counter> stats = new EnumMap<>(Outcome.class);
 
     public SummaryReportingStrategy() {
         for (Outcome outcome : Outcome.values()) {
