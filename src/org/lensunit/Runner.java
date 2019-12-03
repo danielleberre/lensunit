@@ -34,7 +34,7 @@ public class Runner {
                 if (Modifier.isStatic(m.getModifiers())) {
                     o = m.invoke(null);
                 } else {
-                    Object caller = clazz.newInstance();
+                    Object caller = clazz.getDeclaredConstructor().newInstance();
                     o = m.invoke(caller);
                 }
                 if (o instanceof TestSuite) {
