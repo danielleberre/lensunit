@@ -1,12 +1,15 @@
 package org.lensunit;
 
 public class SelfTests extends TestCase {
+    private static final VerboseReportingStrategy verboseStrategy = new VerboseReportingStrategy();
 
     public void testOutcomeOK() throws InstantiationException, IllegalAccessException {
-        outcomeTest(Basic.class, Outcome.OK, new String[] { "testTrivialOk", "testEasyCases", "testIntegerValueOf" });
+        outcomeTest(Basic.class, Outcome.OK,
+                new String[] { "testTrivialOk", "testEasyCases", "testIntegerValueOf", "testDouble" });
         outcomeTest(Exceptions.class, Outcome.OK,
                 new String[] { "testExpectedException", "testExpectedCheckedException", "testExceptionOnNonVoidMethod",
-                        "testExceptionOnNonVoidMethodWithParameters" });
+                        "testExceptionOnNonVoidMethodWithParameters", "testExceptionOnEqualsWithBoolean",
+                        "testExceptionOnEqualsWithDouble", "testExceptionOnEqualsWithFloat" });
     }
 
     public void testOutcomeFailure() throws InstantiationException, IllegalAccessException {
@@ -20,7 +23,10 @@ public class SelfTests extends TestCase {
 
     private void outcomeTest(Class<? extends TestCase> clazz, Outcome expectedOutcome, String[] methodNames)
             throws InstantiationException, IllegalAccessException {
-        ReportingStrategy strategy = (name, outcome, t) -> assertEquals(expectedOutcome, outcome);
+        ReportingStrategy strategy = (name, outcome, t) -> {
+            verboseStrategy.report(name, outcome, t);
+            assertEquals(expectedOutcome, outcome);
+        };
         for (String methodName : methodNames) {
             TestCase testcase = clazz.newInstance();
             testcase.setMethodName(methodName);

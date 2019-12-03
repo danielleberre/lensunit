@@ -156,9 +156,51 @@ public abstract class TestCase implements Test {
         }
     }
 
-    public static final void assertEquals(Object expected, Object o) {
-        if (!expected.equals(o)) {
-            fail(String.format("Expected %s but got %s", expected, o));
+    public static final void assertEquals(Object expected, Object actual) {
+        if (!expected.equals(actual)) {
+            fail(String.format("Expected %s but got %s", expected, actual));
+        }
+    }
+
+    public static final void assertEquals(boolean expected, boolean actual) {
+        String message;
+        if (expected) {
+            message = "Use assertTrue() instead";
+        } else {
+            message = "Use assertFalse() instead";
+        }
+        throw new IllegalArgumentException(message);
+    }
+
+    public static final void assertEquals(int expected, int actual) {
+        if (expected != actual) {
+            fail(String.format("Expected %s but got %s", expected, actual));
+        }
+    }
+
+    public static final void assertEquals(long expected, long actual) {
+        if (expected != actual) {
+            fail(String.format("Expected %s but got %s", expected, actual));
+        }
+    }
+
+    public static final void assertEquals(float expected, float actual) {
+        throw new IllegalArgumentException("Always compare float values within an epsilon range");
+    }
+
+    public static final void assertEquals(double expected, double actual) {
+        throw new IllegalArgumentException("Always compare double values within an epsilon range");
+    }
+
+    public static final void assertEquals(double expected, double actual, double epsilon) {
+        if (Math.abs(expected - actual) > epsilon) {
+            fail(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
+        }
+    }
+
+    public static final void assertEquals(float expected, float actual, float epsilon) {
+        if (Math.abs(expected - actual) > epsilon) {
+            fail(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
         }
     }
 
@@ -177,11 +219,13 @@ public abstract class TestCase implements Test {
     public static final <T extends Throwable> T assertThrows(Class<T> clazz, MethodHandle handle) {
         try {
             handle.doSomething();
+            // cannot use fail() here else the compiler complains about missing return value
             throw new AssertionError("No exception thrown");
         } catch (Throwable t) {
             if (clazz.isAssignableFrom(t.getClass())) {
                 return (T) t;
             }
+            // cannot use fail() here else the compiler complains about missing return value
             throw new AssertionError(String.format("Expected exception %s but got exception %s", clazz.getName(),
                     t.getClass().getName()));
         }
