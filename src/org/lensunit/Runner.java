@@ -50,7 +50,7 @@ public class Runner {
         ReportingStrategy reporting = new VerboseReportingStrategy();
         timedTests.run(reporting);
         System.out.println(reporting);
-        System.out.printf("Duration: %dms", timedTests.getDuration());
+        System.out.printf("Duration: %dms%n", timedTests.getDuration());
         if (reporting.globalOutcome() != Outcome.OK) {
             System.exit(10); // non zero exit code breaks a build
         }
