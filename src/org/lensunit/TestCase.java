@@ -100,7 +100,7 @@ public abstract class TestCase implements Test {
         for (Method m : testcases.getMethods()) {
             if (m.getName().startsWith("test")) {
                 try {
-                    testCase = testcases.getConstructor().newInstance();
+                    testCase = testcases.getDeclaredConstructor().newInstance();
                     testCase.setMethodName(m.getName());
                     suite.add(testCase);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -163,6 +163,9 @@ public abstract class TestCase implements Test {
     }
 
     public static final void assertEquals(boolean expected, boolean actual) {
+        if (expected != actual) {
+            fail(String.format("Expected %s but got %s", expected, actual));
+        }
         String message;
         if (expected) {
             message = "Use assertTrue() instead";

@@ -1,5 +1,6 @@
 package org.lensunit;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -32,8 +33,9 @@ public class TestSuite implements Test {
      */
     public void add(Class<? extends TestCase> testcases) {
         try {
-            add(testcases.newInstance().suite());
-        } catch (InstantiationException | IllegalAccessException e) {
+            add(testcases.getDeclaredConstructor().newInstance().suite());
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             // do nothing
         }
     }
