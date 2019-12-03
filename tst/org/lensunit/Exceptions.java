@@ -43,8 +43,12 @@ public class Exceptions extends TestCase {
                 () -> this.launchExceptionNonVoidMethodWithParameters("toto", 5));
     }
 
-    public void testExceptionOnEqualsWithBoolean() {
+    public void testExceptionOnEqualsWithEqualBooleans() {
         assertThrows(IllegalArgumentException.class, () -> assertEquals(true, true));
+    }
+
+    public void testExceptionOnEqualsWithDifferentBooleans() {
+        assertThrows(AssertionError.class, () -> assertEquals(true, false));
     }
 
     public void testExceptionOnEqualsWithDouble() {

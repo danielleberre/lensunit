@@ -177,13 +177,13 @@ public abstract class TestCase implements Test {
 
     public static final void assertEquals(int expected, int actual) {
         if (expected != actual) {
-            fail(String.format("Expected %s but got %s", expected, actual));
+            fail(String.format("Expected %d but got %d", expected, actual));
         }
     }
 
     public static final void assertEquals(long expected, long actual) {
         if (expected != actual) {
-            fail(String.format("Expected %s but got %s", expected, actual));
+            fail(String.format("Expected %d but got %d", expected, actual));
         }
     }
 

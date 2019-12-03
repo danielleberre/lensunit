@@ -8,8 +8,9 @@ public class SelfTests extends TestCase {
                 new String[] { "testTrivialOk", "testEasyCases", "testIntegerValueOf", "testDouble" });
         outcomeTest(Exceptions.class, Outcome.OK,
                 new String[] { "testExpectedException", "testExpectedCheckedException", "testExceptionOnNonVoidMethod",
-                        "testExceptionOnNonVoidMethodWithParameters", "testExceptionOnEqualsWithBoolean",
-                        "testExceptionOnEqualsWithDouble", "testExceptionOnEqualsWithFloat" });
+                        "testExceptionOnNonVoidMethodWithParameters", "testExceptionOnEqualsWithEqualBooleans",
+                        "testExceptionOnEqualsWithDifferentBooleans", "testExceptionOnEqualsWithDouble",
+                        "testExceptionOnEqualsWithFloat" });
     }
 
     public void testOutcomeFailure() throws InstantiationException, IllegalAccessException {
