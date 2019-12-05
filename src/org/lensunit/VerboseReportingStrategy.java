@@ -12,8 +12,11 @@ public class VerboseReportingStrategy implements ReportingStrategy {
     private int nbtests = 0;
     private Outcome overall = Outcome.OK;
 
+    private SummaryReportingStrategy summary = new SummaryReportingStrategy();
+
     @Override
     public void report(String testname, Outcome outcome, Throwable reason) {
+        summary.report(testname, outcome, reason);
         nbtests++;
         System.out.printf("%s %s%n", testname, outcome);
         if (reason != null) {
@@ -28,7 +31,7 @@ public class VerboseReportingStrategy implements ReportingStrategy {
 
     @Override
     public String toString() {
-        return String.format("Total %d test(s) run, status is %s", nbtests, overall);
+        return String.format("%s%nTotal %d test(s) run, status is %s", summary.getStats(), nbtests, overall);
     }
 
     @Override
