@@ -101,6 +101,8 @@ public abstract class TestCase implements Test {
             if (m.getName().startsWith("test")) {
                 try {
                     testCase = testcases.getDeclaredConstructor().newInstance();
+                    // to avoid requiring testCase class to declare a constructor
+                    // with String parameter
                     testCase.setMethodName(m.getName());
                     suite.add(testCase);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
