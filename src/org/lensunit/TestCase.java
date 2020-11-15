@@ -272,44 +272,44 @@ public abstract class TestCase implements Test {
 
     public static final void assumeNull(Object o) {
         if (o != null) {
-            abort("This object should be null!");
+            abort("This object is assumed to be null!");
         }
     }
 
     public static final void assumeNotNull(Object o) {
         if (o == null) {
-            abort("This object should NOT be null!");
+            abort("This object is assumed NOT to be null!");
         }
     }
 
     public static final void assumeEquals(Object expected, Object actual) {
         if (!expected.equals(actual)) {
-            abort(String.format("Expected %s but got %s", expected, actual));
+            abort(String.format("Assumed %s but got %s", expected, actual));
         }
     }
 
     public static final void assumeEquals(boolean expected, boolean actual) {
         if (expected != actual) {
-            abort(String.format("Expected %s but got %s", expected, actual));
+            abort(String.format("Assumed %s but got %s", expected, actual));
         }
         String message;
         if (expected) {
-            message = "Use assertTrue() instead";
+            message = "Use assumeTrue() instead";
         } else {
-            message = "Use assertFalse() instead";
+            message = "Use assumeFalse() instead";
         }
         throw new IllegalArgumentException(message);
     }
 
     public static final void assumeEquals(int expected, int actual) {
         if (expected != actual) {
-            abort(String.format("Expected %d but got %d", expected, actual));
+            abort(String.format("Assumed %d but got %d", expected, actual));
         }
     }
 
     public static final void assumeEquals(long expected, long actual) {
         if (expected != actual) {
-            abort(String.format("Expected %d but got %d", expected, actual));
+            abort(String.format("Assumed %d but got %d", expected, actual));
         }
     }
 
@@ -323,13 +323,13 @@ public abstract class TestCase implements Test {
 
     public static final void assumeEquals(double expected, double actual, double epsilon) {
         if (Math.abs(expected - actual) > epsilon) {
-            abort(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
+            abort(String.format("Assumed %f (+/- %f) but got %f", expected, epsilon, actual));
         }
     }
 
     public static final void assumeEquals(float expected, float actual, float epsilon) {
         if (Math.abs(expected - actual) > epsilon) {
-            abort(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
+            abort(String.format("Assumed %f (+/- %f) but got %f", expected, epsilon, actual));
         }
     }
 
@@ -355,7 +355,7 @@ public abstract class TestCase implements Test {
                 return (T) t;
             }
             // cannot use fail() here else the compiler complains about missing return value
-            throw new IllegalStateException(String.format("Expected exception %s but got exception %s", clazz.getName(),
+            throw new IllegalStateException(String.format("Assumed exception %s but got exception %s", clazz.getName(),
                     t.getClass().getName()));
         }
     }
