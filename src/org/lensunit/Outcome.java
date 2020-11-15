@@ -13,6 +13,10 @@ public enum Outcome {
      */
     OK,
     /**
+     * The test is aborted because an assumption has been violated.
+     */
+    ABORTED,
+    /**
      * The test fails, i.e. the expected value is not the one computed.
      */
     FAILURE,

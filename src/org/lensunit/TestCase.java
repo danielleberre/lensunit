@@ -55,6 +55,8 @@ public abstract class TestCase implements Test {
         try {
             runCurrent();
             reporting.report(methodName, Outcome.OK, null);
+        } catch (IllegalStateException assertion) {
+            reporting.report(methodName, Outcome.ABORTED, assertion);
         } catch (AssertionError assertion) {
             reporting.report(methodName, Outcome.FAILURE, assertion);
         } catch (Throwable t) {
@@ -232,6 +234,128 @@ public abstract class TestCase implements Test {
             }
             // cannot use fail() here else the compiler complains about missing return value
             throw new AssertionError(String.format("Expected exception %s but got exception %s", clazz.getName(),
+                    t.getClass().getName()));
+        }
+    }
+
+    public static final void abort() {
+        throw new IllegalStateException();
+    }
+
+    public static final void abort(String message) {
+        throw new IllegalStateException(message);
+    }
+
+    public static final void assumeTrue(boolean condition) {
+        if (!condition) {
+            abort();
+        }
+    }
+
+    public static final void assumeFalse(boolean condition) {
+        if (condition) {
+            abort();
+        }
+    }
+
+    public static final void assumeTrue(boolean condition, String message) {
+        if (!condition) {
+            abort(message);
+        }
+    }
+
+    public static final void assumeFalse(boolean condition, String message) {
+        if (condition) {
+            abort(message);
+        }
+    }
+
+    public static final void assumeNull(Object o) {
+        if (o != null) {
+            abort("This object should be null!");
+        }
+    }
+
+    public static final void assumeNotNull(Object o) {
+        if (o == null) {
+            abort("This object should NOT be null!");
+        }
+    }
+
+    public static final void assumeEquals(Object expected, Object actual) {
+        if (!expected.equals(actual)) {
+            abort(String.format("Expected %s but got %s", expected, actual));
+        }
+    }
+
+    public static final void assumeEquals(boolean expected, boolean actual) {
+        if (expected != actual) {
+            abort(String.format("Expected %s but got %s", expected, actual));
+        }
+        String message;
+        if (expected) {
+            message = "Use assertTrue() instead";
+        } else {
+            message = "Use assertFalse() instead";
+        }
+        throw new IllegalArgumentException(message);
+    }
+
+    public static final void assumeEquals(int expected, int actual) {
+        if (expected != actual) {
+            abort(String.format("Expected %d but got %d", expected, actual));
+        }
+    }
+
+    public static final void assumeEquals(long expected, long actual) {
+        if (expected != actual) {
+            abort(String.format("Expected %d but got %d", expected, actual));
+        }
+    }
+
+    public static final void assumeEquals(float expected, float actual) {
+        throw new IllegalArgumentException("Always compare float values within an epsilon range");
+    }
+
+    public static final void assumeEquals(double expected, double actual) {
+        throw new IllegalArgumentException("Always compare double values within an epsilon range");
+    }
+
+    public static final void assumeEquals(double expected, double actual, double epsilon) {
+        if (Math.abs(expected - actual) > epsilon) {
+            abort(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
+        }
+    }
+
+    public static final void assumeEquals(float expected, float actual, float epsilon) {
+        if (Math.abs(expected - actual) > epsilon) {
+            abort(String.format("Expected %f (+/- %f) but got %f", expected, epsilon, actual));
+        }
+    }
+
+    public static final void assumeSame(Object expected, Object o) {
+        if (expected != o) {
+            abort(String.format("%s and %s are not identical", expected, o));
+        }
+    }
+
+    public static final void assumeNotSame(Object expected, Object o) {
+        if (expected == o) {
+            abort(String.format("The two objects are identical to %s ", expected));
+        }
+    }
+
+    public static final <T extends Throwable> T assumeThrows(Class<T> clazz, MethodHandle handle) {
+        try {
+            handle.doSomething();
+            // cannot use fail() here else the compiler complains about missing return value
+            throw new IllegalStateException("No exception thrown");
+        } catch (Throwable t) {
+            if (clazz.isAssignableFrom(t.getClass())) {
+                return (T) t;
+            }
+            // cannot use fail() here else the compiler complains about missing return value
+            throw new IllegalStateException(String.format("Expected exception %s but got exception %s", clazz.getName(),
                     t.getClass().getName()));
         }
     }

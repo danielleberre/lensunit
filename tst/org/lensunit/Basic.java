@@ -61,4 +61,9 @@ public class Basic extends TestCase {
     public void testString() {
         assertEquals("aaabbb", "aaa" + "bbb");
     }
+
+    public void testAssumption() {
+        assumeTrue(false,"J'arrête le test");
+		fail("Mon test échoue ?");
+    }
 }
