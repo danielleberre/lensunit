@@ -63,7 +63,23 @@ public class Basic extends TestCase {
     }
 
     public void testAssumption() {
-        assumeTrue(false,"J'arrête le test");
-		fail("Mon test échoue ?");
+        assumeTrue(false, "J'arrête le test");
+        fail("Mon test échoue ?");
+    }
+
+    public void testTimeout() {
+        assertTimeout(1000, () -> {
+            // do nothing
+        });
+    }
+
+    public void testFailingTimeout() {
+        assertTimeout(1000, () -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // do nothing
+            }
+        });
     }
 }

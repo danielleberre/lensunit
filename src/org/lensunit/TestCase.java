@@ -238,6 +238,17 @@ public abstract class TestCase implements Test {
         }
     }
 
+    public static final void assertTimeout(long timeout, Runnable runnable) {
+        long begin = System.currentTimeMillis();
+        runnable.run();
+        long end = System.currentTimeMillis();
+        long duration = end - begin;
+        if (duration > timeout) {
+            fail(String.format("Timeout reached: expected finishing under %d ms but duration was %d", timeout,
+                    duration));
+        }
+    }
+    
     public static final void abort() {
         throw new IllegalStateException();
     }

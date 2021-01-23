@@ -14,7 +14,7 @@ public class SelfTests extends TestCase {
     }
 
     public void testOutcomeFailure() throws InstantiationException, IllegalAccessException {
-        outcomeTest(Basic.class, Outcome.FAILURE, new String[] { "testFailingTest", "testFailingEquals" });
+        outcomeTest(Basic.class, Outcome.FAILURE, new String[] { "testFailingTest", "testFailingEquals", "testFailingTimeout"});
         outcomeTest(Exceptions.class, Outcome.FAILURE, new String[] { "testUnexpectedException" });
     }
 
