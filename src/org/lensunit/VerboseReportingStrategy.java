@@ -10,7 +10,6 @@ package org.lensunit;
 public class VerboseReportingStrategy implements ReportingStrategy {
 
     private int nbtests = 0;
-    private Outcome overall = Outcome.OK;
 
     private SummaryReportingStrategy summary = new SummaryReportingStrategy();
 
@@ -22,21 +21,16 @@ public class VerboseReportingStrategy implements ReportingStrategy {
         if (reason != null) {
             System.out.println(reason);
         }
-        if (outcome == Outcome.FAILURE && overall == Outcome.OK) {
-            overall = Outcome.FAILURE;
-        } else if (outcome == Outcome.ERROR) {
-            overall = Outcome.ERROR;
-        }
     }
 
     @Override
     public String toString() {
-        return String.format("%s%nTotal %d test(s) run, status is %s", summary.getStats(), nbtests, overall);
+        return String.format("%s%nTotal %d test(s) run, status is %s", summary.getStats(), nbtests, globalOutcome());
     }
 
     @Override
     public Outcome globalOutcome() {
-        return overall;
+        return summary.globalOutcome();
     }
 
 }
