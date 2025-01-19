@@ -1,6 +1,7 @@
 # Simple unit testing framework for educational purpose
 
 [![Lens Unit own CI](https://github.com/danielleberre/lensunit/actions/workflows/main.yml/badge.svg)](https://github.com/danielleberre/lensunit/actions/workflows/main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=danielleberre_lensunit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=danielleberre_lensunit)
 
 ## Goal
 
