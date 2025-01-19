@@ -1,0 +1,17 @@
+name: 'Lens Unit own CI'
+on:
+push:
+    branches:
+        - main
+jobs:
+deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+    - name: compile the code
+      run: ./build.sh
+    - name: run the tests
+      run: ./runtests.sh org.lensunit.AllTests
