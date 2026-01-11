@@ -42,7 +42,7 @@ public class Runner {
                 }
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | InstantiationException e) {
-                logger.log(Level.INFO, "cannot run tests " + testclass, e);
+                logger.log(Level.INFO, e, () -> "cannot run tests " + testclass);
             }
         }
 

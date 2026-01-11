@@ -109,7 +109,7 @@ public abstract class TestCase implements Test {
                     suite.add(testCase);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                         | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                    LOGGER.log(Level.INFO, "cannot create test " + m.getName(), e);
+                    LOGGER.log(Level.INFO, e, () -> "cannot create test " + m.getName());
                 }
             }
         }
@@ -248,7 +248,7 @@ public abstract class TestCase implements Test {
                     duration));
         }
     }
-    
+
     public static final void abort() {
         throw new IllegalStateException();
     }
